@@ -1,0 +1,12 @@
+.main {
+  padding: 11rem 3rem 2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.alert-text{
+  margin:2rem 0;
+  text-align: center;
+}
