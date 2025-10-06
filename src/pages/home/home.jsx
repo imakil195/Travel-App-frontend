@@ -1,15 +1,16 @@
-import { Fragment, useState, useEffect } from "react";
-import { Navbar, HotelCard , Categories } from "../../components";
+import { useState, useEffect } from "react";
+import { Navbar, HotelCard , Categories , SearchStayWithDate } from "../../components";
 import "./Home.css";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useCategory } from "../../context";
+import { useCategory ,useDate } from "../../context";
 export const Home = () => {
   const [hasMore, setHasMore] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(16);
   const [testData, setTestData] = useState([]);
   const [hotels, setHotels] = useState([]);
   const {hotelCategory} = useCategory()
+  const {isSearchModalOpen} = useDate()
 
   useEffect(() => {
     (async () => {
@@ -41,24 +42,26 @@ export const Home = () => {
   };
 
   return (
-    <Fragment>
+    <div className="relative">
       <Navbar />
       <Categories/>
-      {hotels && hotels.length > 0 ? (
+      {hotels.length > 0 ? (
         <InfiniteScroll
-          dataLength={hotels.length} 
+          dataLength={hotels.length}
           next={fetchMoreData}
           hasMore={hasMore}
           loader={<h3 className="alert-text">Loading...</h3>}
-          endMessage={<p className="alert-text">You have seen it all</p>} 
+          endMessage={<p className="alert-text">You have seen it all</p>}
         >
           <main className="main d-flex align-center wrap gap-larger">
-            {hotels.map((hotel) => (
-              <HotelCard key={hotel._id} hotel={hotel} />
-            ))}
+            {hotels.map((hotel) => (<HotelCard key={hotel._id} hotel={hotel} />))}
           </main>
         </InfiniteScroll>
-      ) : null}
-    </Fragment>
+      ) : (
+        <h3 className="alert-text">Loading...</h3>
+      )}
+      {isSearchModalOpen && <SearchStayWithDate/>}
+    </div>
+   
   );
 };
