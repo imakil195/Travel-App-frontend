@@ -1,0 +1,94 @@
+.hotel-details-container {
+  width: 50vw;         
+  margin: 2rem 0 0;       
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: "roboto", sans-serif;
+  color: #333;
+  text-align: left;
+}
+/* Host Info */
+.host-details {
+  margin-bottom: 1.5rem;
+}
+
+.host-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.host-details .span {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Key Features */
+.key-features {
+  border-top: 1px solid #eee;
+  padding-top: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.key-features .p {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.key-features .span {
+  color: #777;
+  font-size: 0.9rem;
+  margin-left: 2rem;
+  display: block;
+}
+
+.gutter-bottom-small {
+  margin-bottom: 1rem;
+}
+
+/* Amenities */
+.amenities-container {
+  border-top: 1px solid #eee;
+  padding-top: 1.2rem;
+}
+
+.amenities {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Two-column grid for amenities */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem 2rem;
+}
+
+.amenities-container .span {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Icons */
+.apps {
+  font-size: 1.2rem;
+  color: #ff5a5f; /* red accent */
+}
+
+/* Flex helpers */
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.gap {
+  gap: 0.75rem;
+}
+
