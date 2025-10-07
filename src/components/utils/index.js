@@ -7,3 +7,6 @@ export {validateEmail} from './email-regex';
 export {validatePassword} from './password-regex';
 
 export {validateNumber} from './number-regex';
+
+
+export {findHotelInWishlist} from './find-hotel-in-wishlist';

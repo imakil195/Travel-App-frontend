@@ -6,7 +6,6 @@ import { validatePassword } from "../utils/password-regex";
 import { validateNumber } from "../utils/number-regex";
 
 import { signupHandler } from "../../services";
-import { is } from '../../../node_modules/date-fns/locale/is';
 
 let isNumberValid , isEmailValid , isNameValid , isPasswordValid , isConfirmPasswordValid;
 
