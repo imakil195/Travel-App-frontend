@@ -2,7 +2,7 @@ import "./HotelDetails.css"
 
 
 export const HotelDetails = ({ singleHotel }) => {
-  if (!singleHotel) return null; // safeguard
+  if (!singleHotel) {return null}; // safeguard
 
   const {
     hostName,
