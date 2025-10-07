@@ -19,7 +19,7 @@ export const SingleHotel = () => {
                 console.log(err);
             }
         })();
-    }, [id]);
+    }, []);
 
     return (
         <Fragment>

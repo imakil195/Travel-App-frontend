@@ -4,75 +4,86 @@ import { validateNumber } from "../utils/number-regex";
 import { validatePassword } from "../utils/password-regex";
 import { useAuth } from "../../context";
 
-
-let isNumberValid , isPasswordValid;
+let isNumberValid, isPasswordValid;
 
 export const AuthLogin = () => {
+  const { authDispatch, number, password } = useAuth();
 
-    const { authDispatch , number , password} = useAuth();
+  const handleNumberChange = (event) => {
+    isNumberValid = validateNumber(event.target.value);
+    if (isNumberValid) {
+      authDispatch({
+        type: "NUMBER",
+        payload: event.target.value,
+      });
+    } else {
+      console.log("Invalid number entered");
+    }
+  };
 
-   
+  const handlePasswordChange = (event) => {
+    isPasswordValid = validatePassword(event.target.value);
+    if (isPasswordValid) {
+      authDispatch({
+        type: "PASSWORD",
+        payload: event.target.value,
+      });
+    } else {
+      console.log("Invalid password entered");
+    }
+  };
 
-    const handleNumberChange = (event) => {
-       isNumberValid = validateNumber(event.target.value);
-      if (isNumberValid) {
-        authDispatch({
-          type: "NUMBER",
-          payload: event.target.value,
-        });
-      } else {
-        console.log("Invalid number entered");
-      }
-    };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
 
-      const handlePasswordChange = (event) => {
-         isPasswordValid = validatePassword(event.target.value);
-        if (isPasswordValid) {
-          
-          authDispatch({
-            type: "PASSWORD",
-            payload: event.target.value,
-          });
-        } else {
-          console.log("Invalid password entered");
-        }
-      };
+    if (isNumberValid && isPasswordValid) {
+      const { accessToken, username } = await loginHandler(number, password);
+      authDispatch({
+        type: "SET_ACCESS_TOKEN",
+        payload: accessToken,
+      });
+      authDispatch({
+        type: "SET_USERNAME",
+        payload: username,
+      });
+    }
 
-      const handleFormSubmit = async (e) => {
-        e.preventDefault();
+    authDispatch({
+      type: "CLEAR_USER_DATA",
+    });
+    authDispatch({
+      type: "SHOW_AUTH_MODAL",
+    });
+  };
 
-        if (isNumberValid && isPasswordValid) {
-          const {accessToken , username} = await loginHandler(number , password);
-          authDispatch({
-            type:"SET_ACCESS_TOKEN",
-            payload:accessToken,
-          
-          })
-          authDispatch({
-            type:"SET_USERNAME",
-            payload:username,
-          })
-       
+  const handleTestCredentialsClick = async () => {
+    const { accessToken, username } = await loginHandler(9611554474, "Akil123#");
+    authDispatch({
+      type: "SET_ACCESS_TOKEN",
+      payload: accessToken,
+    });
+    authDispatch({
+      type: "SET_USERNAME",
+      payload: username,
+    });
 
-        }
-            authDispatch(
-        {
-          type:"CLEAR_USER_DATA"
-        });
-        authDispatch({
-          type:"SHOW_AUTH_MODAL"
-        }); 
-      };  
+    authDispatch({
+      type: "CLEAR_USER_DATA",
+    });
+    authDispatch({
+      type: "SHOW_AUTH_MODAL",
+    });
+  };
 
   return (
     <div className="auth-container">
       <form onSubmit={handleFormSubmit}>
         <div className="d-flex direction-column lb-in-container">
           <label className="auth-label">
-            Mobile Number <span className="asterisk">*</span>{" "}
+            Mobile Number <span className="asterisk">*</span>
           </label>
           <input
-          defaultValue={number}
+            defaultValue={number}
             className="auth-input"
             maxLength="10"
             placeholder="Enter mobile number"
@@ -84,10 +95,10 @@ export const AuthLogin = () => {
 
         <div className="d-flex direction-column lb-in-container">
           <label className="auth-label">
-            Password <span className="asterisk">*</span>{" "}
+            Password <span className="asterisk">*</span>
           </label>
           <input
-          defaultValue={password}
+            defaultValue={password}
             className="auth-input"
             placeholder="Enter password"
             type="password"
@@ -97,14 +108,15 @@ export const AuthLogin = () => {
         </div>
 
         <div>
-          <button className="button btn-primary btn-login cursor">
-            Login
-          </button>
+          <button className="button btn-primary btn-login cursor">Login</button>
         </div>
       </form>
 
       <div className="cta">
-        <button className="button btn-outline-primary cursor-pointer">
+        <button
+          className="button btn-outline-primary cursor-pointer"
+          onClick={handleTestCredentialsClick}
+        >
           Login with Test Credentials
         </button>
       </div>

@@ -2,16 +2,23 @@
 import { useDate} from "../../context";
 import "./FinalPrice.css";
 import { DateSelector } from '../DateSelector/DateSelector';
+import { useNavigate } from "react-router-dom";
 
 export const FinalPrice = ({singleHotel}) => {
-    const {price,rating} = singleHotel;
+    const {_id , price,rating} = singleHotel;
 
-    const {guests , dateDispatch} = useDate();
+    const {guests , dateDispatch, checkInDate, checkOutDate} = useDate();
+
+    const navigate = useNavigate();
 
 
     const handleGuestChange = (event) => {
-      dateDispatch({type:"GUESTS", payload: event.target.value})
+      dateDispatch({type:"GUESTS", payload: Number(event.target.value) || 0})
     }
+
+    const handleReserveClick = () => {
+      navigate(`/confirm-booking/stay/${_id}`);
+    };
 
   return (
     <div className="price-details-container d-flex direction-column gap shadow">
@@ -37,25 +44,30 @@ export const FinalPrice = ({singleHotel}) => {
         </div>
         <div className="guests gutter-sm">
             <p>GUESTS</p>
-           {
-  guests === 0 ? (
-    <input 
-      className="guest-count-input" 
-      type="number" 
-      placeholder="Add guests" 
-      value={guests || ''} 
-      onChange={handleGuestChange}
-    />
-  ) : (
-    <span onClick={() => setGuests(0)}>{guests} guest{guests !== 1 ? 's' : ''}</span>
-  )
-}
+           {guests === 0 ? (
+             <input 
+               className="guest-count-input" 
+               type="number" 
+               min="0"
+               placeholder="Add guests" 
+               value={guests || ''} 
+               onChange={handleGuestChange}
+             />
+           ) : (
+             <span className="cursor-pointer" onClick={() => dateDispatch({type: "GUESTS", payload: 0})}>
+               {guests} guest{guests !== 1 ? 's' : ''}
+             </span>
+           )}
 
         
         </div>
       </div>
       <div>
-            <button className="button btn-reserve btn-primary cursor">Reserve</button>       
+            <button className="button btn-reserve btn-primary cursor" 
+            onClick={handleReserveClick} 
+            disabled={!checkInDate || !checkOutDate || guests <= 0}>
+              Reserve
+              </button>       
       </div>
       <div className="price-distrbution d-flex direction-column">
         <div className="final-price d-flex align-center justify-space-between">
