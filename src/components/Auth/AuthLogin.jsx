@@ -3,11 +3,13 @@ import { loginHandler } from "../../services";
 import { validateNumber } from "../utils/number-regex";
 import { validatePassword } from "../utils/password-regex";
 import { useAuth } from "../../context";
+import { useToast } from "../../context/toast-context";
 
 let isNumberValid, isPasswordValid;
 
 export const AuthLogin = () => {
   const { authDispatch, number, password } = useAuth();
+  const { toastDispatch } = useToast();
 
   const handleNumberChange = (event) => {
     isNumberValid = validateNumber(event.target.value);
@@ -46,6 +48,11 @@ export const AuthLogin = () => {
         type: "SET_USERNAME",
         payload: username,
       });
+      
+      toastDispatch({
+        type: "SHOW_TOAST",
+        payload: { message: `Welcome back, ${username}!`, toastType: "success" }
+      });
     }
 
     authDispatch({
@@ -65,6 +72,11 @@ export const AuthLogin = () => {
     authDispatch({
       type: "SET_USERNAME",
       payload: username,
+    });
+
+    toastDispatch({
+      type: "SHOW_TOAST",
+      payload: { message: `Welcome back, ${username}!`, toastType: "success" }
     });
 
     authDispatch({

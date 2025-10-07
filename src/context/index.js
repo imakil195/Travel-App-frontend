@@ -6,3 +6,5 @@ export {useCategory,CategoryProvider} from "./category.context"
 
 
  export {WishlistProvider, useWishlist} from "./wishlist-context";
+
+ export {ToastProvider, useToast} from "./toast-context";
