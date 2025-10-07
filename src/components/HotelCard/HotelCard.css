@@ -50,13 +50,11 @@
 
 .favorite {
   color: #9ca3af; /* neutral grey */
-  transition: color 0.2s ease;
+  
 }
 
-.favorite:hover {
-  color: #dc2626; /* darker red on hover */
+
+.fav-selected{
+  color:red;
 }
 
-.fav-selected {
-  color: #ef4444; /* bright red when selected */
-}
