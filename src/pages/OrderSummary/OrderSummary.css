@@ -1,0 +1,246 @@
+.order-summary-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  padding: 8rem 1rem 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-summary-container {
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  animation: fadeInScale 0.6s ease-out;
+}
+
+/* Success Checkmark */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.25);
+  animation: scaleIn 0.5s ease-out;
+}
+
+.success-checkmark .material-icons-outlined {
+  font-size: 3rem;
+  color: #fff;
+}
+
+/* Title */
+.order-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin: 0;
+  text-align: center;
+}
+
+.order-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: -0.5rem 0 0 0;
+  text-align: center;
+}
+
+/* Order Card */
+.order-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Hotel Info */
+.hotel-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color-primary);
+  margin: 0;
+  text-align: center;
+}
+
+.hotel-subtitle {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+/* Divider */
+.order-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+}
+
+/* Trip Grid */
+.trip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.trip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.trip-label {
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.trip-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-primary);
+}
+
+/* Payment Lines */
+.payment-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.payment-line span:last-child {
+  font-weight: 600;
+  color: var(--text-color-primary);
+}
+
+.total-line {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.total-line span {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Booking ID */
+.booking-id-section {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: -0.5rem 0;
+}
+
+.id-label {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.id-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+}
+
+/* Back Button */
+.btn-back {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 101, 37, 0.25);
+}
+
+.btn-back:hover {
+  background: #e64a19;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 101, 37, 0.35);
+}
+
+.btn-back:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 101, 37, 0.25);
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-summary-page {
+    padding: 7rem 1rem 2rem 1rem;
+  }
+
+  .order-card {
+    padding: 1.5rem;
+  }
+
+  .order-title {
+    font-size: 1.75rem;
+  }
+
+  .success-checkmark {
+    width: 70px;
+    height: 70px;
+  }
+
+  .success-checkmark .material-icons-outlined {
+    font-size: 2.5rem;
+  }
+}
