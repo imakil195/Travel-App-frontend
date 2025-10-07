@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Navbar, HotelCard , Categories , SearchStayWithDate } from "../../components";
+import { Navbar, HotelCard , Categories , SearchStayWithDate , AuthModal } from "../../components";
 import "./Home.css";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useCategory ,useDate } from "../../context";
+import { useCategory ,useDate ,useAuth} from "../../context";
+
+
 export const Home = () => {
   const [hasMore, setHasMore] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(16);
@@ -12,11 +14,15 @@ export const Home = () => {
   const {hotelCategory} = useCategory()
   const {isSearchModalOpen} = useDate()
 
+
+  const {isAuthModalOpen} = useAuth();
+
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(
-      `https://travelstay-backendapp.onrender.com/api/hotels?category=${hotelCategory} `        );
+          `https://travelstay-backendapp.onrender.com/api/hotels?category=${hotelCategory}`
+        );
         setTestData(data);
         setHotels(data ? data.slice(0, 16) : []);
       } catch (err) {
@@ -61,6 +67,7 @@ export const Home = () => {
         <h3 className="alert-text">Loading...</h3>
       )}
       {isSearchModalOpen && <SearchStayWithDate/>}
+      {isAuthModalOpen && <AuthModal/>}
     </div>
    
   );
