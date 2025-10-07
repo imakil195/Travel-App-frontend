@@ -1,2 +1,4 @@
 
-export {DateReducer}  from './date-reducer';
+
+export {dateReducer}  from './date-reducer';
+export {authReducer} from './auth-reducer';
