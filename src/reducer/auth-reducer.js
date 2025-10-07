@@ -75,6 +75,25 @@ export const authReducer = (state ,  {type,payload}) => {
                 name:payload
             };
 
+            case "LOGOUT":
+            return{
+                ...state,
+                accessToken: "",
+                username: "",
+                email: "",
+                number: "",
+                password: "",
+                confirmPassword: "",
+                isAuthModalOpen: false
+            };
+
+            case "LOAD_AUTH_FROM_STORAGE":
+            return{
+                ...state,
+                accessToken: payload.accessToken,
+                username: payload.username
+            };
+
          default:
             return state;
     }

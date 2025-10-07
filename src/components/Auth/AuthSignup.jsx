@@ -1,5 +1,6 @@
 import "./Auth.css";
 import { useAuth } from "../../context";
+import { useToast } from "../../context/toast-context";
 import { validateEmail } from "../utils/email-regex";
 import { validateName } from "../utils/name-regex";
 import { validatePassword } from "../utils/password-regex";
@@ -11,6 +12,7 @@ let isNumberValid , isEmailValid , isNameValid , isPasswordValid , isConfirmPass
 
 export const AuthSignup = () => {
   const { username, email, password, number, confirmPassword, authDispatch } = useAuth();
+  const { toastDispatch } = useToast();
 
 
   const handleNumberChange = (event) => {
@@ -77,19 +79,25 @@ export const AuthSignup = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (isNumberValid && isEmailValid && isNameValid && isPasswordValid && isConfirmPasswordValid) 
       {
-        signupHandler(username , number , email, password);
-      }
-      authDispatch(
-        {
-          
-          type:"CLEAR_USER_DATA"
-
+        await signupHandler(username , number , email, password);
+        
+        toastDispatch({
+          type: "SHOW_TOAST",
+          payload: { message: "Account created successfully! Please login.", toastType: "success" }
         });
+        
+        authDispatch({
+          type: "SET_TO_LOGIN"
+        });
+      }
+      authDispatch({
+        type:"CLEAR_USER_DATA"
+      });
   };
 
   return (

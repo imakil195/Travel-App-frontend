@@ -1,6 +1,7 @@
 import "./HotelCard.css";
 import { useNavigate } from "react-router-dom";
 import { useWishlist , useAuth } from "../../context";
+import { useToast } from "../../context/toast-context";
 import { findHotelInWishlist } from "../utils";
 
 
@@ -8,25 +9,33 @@ export const HotelCard = ({ hotel }) => {
   const { _id, name, image, address, state, rating, price } = hotel;
 
   const { wishlistDispatch, Wishlist } = useWishlist();
-
   const {accessToken , authDispatch} = useAuth();
+  const { toastDispatch } = useToast();
 
   const isHotelInWishlist = findHotelInWishlist(Wishlist, _id);
 
   const handleWishlistClick = () => {
     if (accessToken) {
       if (!isHotelInWishlist) {
-      wishlistDispatch({
-        type: "ADD_TO_WISHLIST",
-        payload: hotel,
-      });
-      navigate("/wishlist");
+        wishlistDispatch({
+          type: "ADD_TO_WISHLIST",
+          payload: hotel,
+        });
+        toastDispatch({
+          type: "SHOW_TOAST",
+          payload: { message: "Added to wishlist!", toastType: "success" }
+        });
+      } else {
+        wishlistDispatch({
+          type: "REMOVE_FROM_WISHLIST",
+          payload: _id,
+        });
+        toastDispatch({
+          type: "SHOW_TOAST",
+          payload: { message: "Removed from wishlist", toastType: "info" }
+        });
+      }
     } else {
-      wishlistDispatch({
-        type: "REMOVE_FROM_WISHLIST",
-        payload: _id,
-      });
-    }}else{
       authDispatch({type : "SHOW_AUTH_MODAL"})
     }
   };

@@ -1,11 +1,13 @@
 import "./Navbar.css";
-import { useDate , useAuth} from "../../context";
+import { useDate , useAuth, useWishlist} from "../../context";
+import { useNavigate } from "react-router-dom";
+
 export const Navbar = () => {
 
     const {destination , dateDispatch ,checkInDate , checkOutDate , guests} = useDate()
-
-
-    const {authDispatch} = useAuth()
+    const {authDispatch, accessToken} = useAuth()
+    const {Wishlist} = useWishlist()
+    const navigate = useNavigate()
 
     const handleSearchClick = () => {
         dateDispatch({
@@ -17,6 +19,16 @@ export const Navbar = () => {
       authDispatch({
         type:"SHOW_AUTH_MODAL",
       })
+    }
+
+    const handleWishlistClick = () => {
+      if (accessToken) {
+        navigate("/wishlist");
+      } else {
+        authDispatch({
+          type:"SHOW_AUTH_MODAL",
+        })
+      }
     }
         
   return (
@@ -46,8 +58,14 @@ export const Navbar = () => {
         <span className="search material-symbols-outlined">search</span>
       </div>
   
-      <nav className="d-flex align-center gap-large" onClick={handleAuthClick}>
-        <div className="nav d-flex align-center cursor-pointer">
+      <nav className="d-flex align-center gap-large">
+        <div className="wishlist-icon-container cursor-pointer" onClick={handleWishlistClick}>
+          <span className="material-icons-outlined wishlist-icon">favorite</span>
+          {Wishlist.length > 0 && (
+            <span className="wishlist-badge">{Wishlist.length}</span>
+          )}
+        </div>
+        <div className="nav d-flex align-center cursor-pointer" onClick={handleAuthClick}>
           <span className="material-symbols-outlined profile-option menu">
             menu
           </span>
